@@ -1,12 +1,9 @@
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Button } from '@mui/material';
 import './App.css';
-
+import NavBar from './components/NavBar.js';
 function App() {
   return (
     <div className="App">
-      <h1>Welcome to the Practice UI</h1>
-      <Button variant="contained"><AccountCircleIcon /> Profile</Button>
+      <NavBar />
     </div>
   );
 }

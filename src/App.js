@@ -1,13 +1,17 @@
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Button } from '@mui/material';
 import './App.css';
-
+import TodoList from './component/TodoList';
+import RootContainer from './component/RootContainer';
+import Title from './component/Title';
+import ListButton from './component/NavButton';
+import AddTask from './component/AddTask';
 function App() {
   return (
-    <div className="App">
-      <h1>Welcome to the Practice UI</h1>
-      <Button variant="contained"><AccountCircleIcon /> Profile</Button>
-    </div>
+   <RootContainer>
+    <Title />
+    <ListButton />
+    <TodoList />
+    <AddTask />
+   </RootContainer>
   );
 }
 

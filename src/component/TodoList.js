@@ -80,7 +80,7 @@ export function DeleteBtn({ id }) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{`do you want to delete this item? #${id}`}</DialogTitle>
+        <DialogTitle>{`do you want to delete this item?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
             This action cannot be undone.

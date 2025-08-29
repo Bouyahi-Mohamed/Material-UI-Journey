@@ -34,12 +34,16 @@ export default function TodoList() {
       sx={{
         width: "90%",
         display: "grid",
-        gridTemplateAreas: "repeat(auto-fill, minmax(min(200px, 100%), 1fr))",
+        gridTemplateColumns: "repeat(auto-fill, minmax(200px))",
         gap: 2,
-        alignContent: "center",
         margin: "0 auto",
-      }}
-    >
+        overflow: "auto",
+        maxHeight: 300,
+        minHeight: 300,
+        alignContent: "flex-start",
+
+      }}>
+    
       <RenderTodoList tasks={tasks} navBots={navBots} selectedCard={selectedCard} setTasks={setTasks}/>
      
 
@@ -256,7 +260,6 @@ function TodoCard({ task, setTasks ,selectedCard,index}) {
             sx={{
               height: "100%",
               backgroundColor: task.state ? 'green' : "#4994bcff",
-              padding: task.state ? "8px 0 " : "0",
             }}
           >
             <CardContent sx={{ height: "100%", color: "#ffffffff" }}>

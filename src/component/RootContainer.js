@@ -9,9 +9,9 @@ export default function RootContainer({ children }) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <GlobalStyles styles={{ body: { backgroundColor: '#000' , display: 'flex', justifyContent: 'center', alignItems: 'center' } }} />
+      <GlobalStyles styles={{ body: { backgroundColor: '#f0f0f0' , display: 'flex', justifyContent: 'center', alignItems: 'center' } }} />
       <Container maxWidth="sm">
-        <Box sx={{  bgcolor: '#ffffffff', minHeight: '80vh', borderRadius: '8px', boxShadow: 3, my:3}}>
+        <Box sx={{  bgcolor: '#ffffffff', Height: '80vh', borderRadius: '8px', boxShadow: 3, my:1}}>
           {children}
         </Box>
       </Container>

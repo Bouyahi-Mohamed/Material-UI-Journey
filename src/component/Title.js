@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 export default function Title() {
   return (
     <Box sx={{ textAlign: 'center',}}>
-      <Typography sx={{ fontWeight: 'bold', pt: 2 }} variant="h3">Todo List</Typography>
+      <Typography sx={{py: 2 ,color: "#3b4d72ff" }} variant="h3">My tasks</Typography>
     </Box>
   );
 }

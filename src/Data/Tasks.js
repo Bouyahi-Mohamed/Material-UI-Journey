@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext , useContext} from "react";
 const tasks = [
   {
     id: 1,
@@ -19,6 +19,7 @@ const tasks = [
     state: false
   },
 ];
+
 const TasksContext = createContext({ tasks: [], setTasks: () => {} });
 const NavBotsContext = createContext({ navBots: 'all', setNavBots: () => {} });
 export { TasksContext, tasks, NavBotsContext };

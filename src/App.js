@@ -6,13 +6,11 @@ import ListButton from './component/NavButton';
 import AddTask from './component/AddTask';
 import {TasksContext,NavBotsContext} from './Data/Tasks';
 import { useState } from 'react';
+const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+const navbarStorage = JSON.parse(localStorage.getItem('navbar')) || 'all';
 function App() {
-  const [navBots, setNavBots] = useState('all');
-  const [tasks, setTasks] = useState([
-    { id: 1, title: "do gym", description: "I have to do back", state: true },
-    { id: 2, title: "feed my Animals", description: "Animals are a part of nature.", state: true },
-    { id: 3, title: "call my family", description: "Humans  depend on plants and animals for survival.", state: false },
-  ]);
+  const [navBots, setNavBots] = useState(navbarStorage);
+  const [tasks, setTasks] = useState(storedTasks);
   return (
     <NavBotsContext.Provider value={{navBots, setNavBots}}>
     <TasksContext.Provider value={{tasks, setTasks}}>

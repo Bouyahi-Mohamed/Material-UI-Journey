@@ -14,6 +14,7 @@ export default function AddTask() {
     event.preventDefault();
     setTasks([...tasks, { ...newTask, id: crypto.randomUUID() }]);
     setNewTask({ title: "", description: "", state: false });
+    localStorage.setItem('tasks', JSON.stringify([...tasks, { ...newTask, id: crypto.randomUUID() }]));
   };
 
   return (

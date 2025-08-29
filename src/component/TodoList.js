@@ -91,7 +91,9 @@ export function DeleteBtn({ id }) {
           <Button onClick={()=>{
             handleClose();
             // add delete logic here
+            localStorage.setItem('tasks', JSON.stringify(tasks.filter((c) => c.id !== id)));
             setTasks((prev) => prev.filter((c) => c.id !== id));
+
           }}>Yes</Button>
         </DialogActions>
       </Dialog>
@@ -138,7 +140,7 @@ export  function EditBtn({ id }) {
       </IconButton>
       <Dialog open={open} onClose={handleClose}
       sx={{width: 800}}>
-        <DialogTitle>{`Subscribe to item #${id}`}</DialogTitle>
+        <DialogTitle>would you like to edit this item</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit} id="subscription-form">
             <TextField
@@ -153,6 +155,7 @@ export  function EditBtn({ id }) {
               variant="standard"
               value={editedTask.title}
               onChange={(e) => setEditedTask({ ...editedTask, title: e.target.value })}
+          
             />
             <TextField
               autoFocus
@@ -165,13 +168,14 @@ export  function EditBtn({ id }) {
               fullWidth
               variant="standard"
               value={editedTask.description}
-              onChange={(e) => setEditedTask({ ...editedTask, description: e.target.value })}
+              onChange={(e) => {setEditedTask({ ...editedTask, description: e.target.value });}}
             />
           </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button type="submit" form="subscription-form" onClick={() => {
+            localStorage.setItem('tasks', JSON.stringify(tasks.map((task) => (task.id === id ? editedTask : task))));
             setTasks((prev) => prev.map((task) => (task.id === id ? editedTask : task)));
             handleClose();
           }}>
@@ -182,6 +186,45 @@ export  function EditBtn({ id }) {
     </React.Fragment>
   );
 }
+  
+// check button that defines that action done or undone
+function CheckBtn({ id }) {
+  const { tasks, setTasks } = useContext(TasksContext);
+  const task = tasks.find((t) => t.id === id);
+  if (!task) return null;
+
+  return (
+    <React.Fragment>
+      <IconButton
+        sx={{
+          backgroundColor: "#ffffffff",
+          color: task.state ? "red" : "green",
+          ":hover": { backgroundColor: "lightgray" },
+        }}
+        aria-label={task.state ? "check" : "close"}
+        onClick={() => {
+          localStorage.setItem(
+            "tasks",
+            JSON.stringify(
+              tasks.map((c) =>
+                c.id === task.id ? { ...c, state: !c.state } : c
+              )
+            )
+          );
+          setTasks((prev) =>
+            prev.map((c) =>
+              c.id === task.id ? { ...c, state: !c.state } : c
+            )
+          );
+        }}
+      >
+        {task.state ? <CloseIcon /> : <CheckIcon />}
+      </IconButton>
+    </React.Fragment>
+  );
+}
+
+// function that renders the todo list depending on the selected filter
 export function RenderTodoList({ tasks, navBots, selectedCard, setTasks }) {
   return (
     <React.Fragment>
@@ -201,6 +244,8 @@ export function RenderTodoList({ tasks, navBots, selectedCard, setTasks }) {
   );
 }
 
+
+// card component that will rendered
 function TodoCard({ task, setTasks ,selectedCard,index}) {
   
   return (
@@ -228,25 +273,7 @@ function TodoCard({ task, setTasks ,selectedCard,index}) {
                   <Stack direction="row" spacing={1}>
                     <DeleteBtn id={task.id} />
                     <EditBtn id={task.id} />
-                    <IconButton
-                      sx={{
-                        backgroundColor: "#ffffffff",
-                        color: task.state ?"red":"green",
-                        ":hover": { backgroundColor: "lightgray" },
-                      }}
-                      aria-label= {task.state ? "check" : 'close'}
-                      
-                      onClick={() =>
-                        setTasks((prev) =>
-                          prev.map((c) =>
-                            c.id === task.id ? { ...c, state: !c.state } : c
-                          )
-                        )
-                      }
-                    >
-                      {task.state ?   <CloseIcon />  : <CheckIcon />}
-
-                    </IconButton>
+                    <CheckBtn id={task.id} />
                   </Stack>
                 </Grid>
               </Grid>

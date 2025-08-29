@@ -40,57 +40,9 @@ export default function TodoList() {
         margin: "0 auto",
       }}
     >
-      {tasks.map((task, index) => (
-        <Card key={task.id}>
-          <CardActionArea
-            data-active={selectedCard === index ? "" : undefined}
-            sx={{
-              height: "100%",
-              backgroundColor: task.state ? "#68aaecff" : "green",
-              border: task.state ? "2px solid lightblue" : "none",
-              padding: task.state ? "8px 0 " : "0",
-            }}
-          >
-            <CardContent sx={{ height: "100%", color: "#ffffffff" }}>
-              <Grid container spacing={2}>
-                <Grid item size={8}>
-                  <Typography variant="h5" component="h1">
-                    {task.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.white">
-                    {task.description}
-                  </Typography>
-                </Grid>
-                <Grid item size={4}>
-                  <Stack direction="row" spacing={1}>
-                    <DeleteBtn id={task.id} />
-                    <EditBtn id={task.id} />
-                    <IconButton
-                      sx={{
-                        backgroundColor: "#ffffffff",
-                        color: task.state ?"green":"red",
-                        ":hover": { backgroundColor: "lightgray" },
-                      }}
-                      aria-label= {task.state ? "check" : 'close'}
-                      
-                      onClick={() =>
-                        setTasks((prev) =>
-                          prev.map((c) =>
-                            c.id === task.id ? { ...c, state: !c.state } : c
-                          )
-                        )
-                      }
-                    >
-                      {task.state ? <CheckIcon /> : <CloseIcon />}
+      <RenderTodoList tasks={tasks} navBots={navBots} selectedCard={selectedCard} setTasks={setTasks}/>
+     
 
-                    </IconButton>
-                  </Stack>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      ))}
     </Box>
   );
 }
@@ -229,4 +181,80 @@ export  function EditBtn({ id }) {
       </Dialog>
     </React.Fragment>
   );
+}
+export function RenderTodoList({ tasks, navBots, selectedCard, setTasks }) {
+  return (
+    <React.Fragment>
+      {tasks
+        .filter((task) => {
+          if (navBots === "undone") {
+            return task.state === false;
+          } else if (navBots === "done") {
+            return task.state === true;
+          }
+          return true;
+        })
+        .map((task, index) => (
+          <TodoCard  task={task} setTasks={setTasks} selectedCard={selectedCard} index={index}/>
+        ))}
+    </React.Fragment>
+  );
+}
+
+function TodoCard({ task, setTasks ,selectedCard,index}) {
+  
+  return (
+    <React.Fragment>
+       <Card key={task.id}>
+          <CardActionArea
+            data-active={selectedCard === index ? "" : undefined}
+            sx={{
+              height: "100%",
+              backgroundColor: task.state ? 'green' : "#4994bcff",
+              padding: task.state ? "8px 0 " : "0",
+            }}
+          >
+            <CardContent sx={{ height: "100%", color: "#ffffffff" }}>
+              <Grid container spacing={2}>
+                <Grid item size={8}>
+                  <Typography variant="h5" component="h1">
+                    {task.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.white">
+                    {task.description}
+                  </Typography>
+                </Grid>
+                <Grid item size={4}>
+                  <Stack direction="row" spacing={1}>
+                    <DeleteBtn id={task.id} />
+                    <EditBtn id={task.id} />
+                    <IconButton
+                      sx={{
+                        backgroundColor: "#ffffffff",
+                        color: task.state ?"red":"green",
+                        ":hover": { backgroundColor: "lightgray" },
+                      }}
+                      aria-label= {task.state ? "check" : 'close'}
+                      
+                      onClick={() =>
+                        setTasks((prev) =>
+                          prev.map((c) =>
+                            c.id === task.id ? { ...c, state: !c.state } : c
+                          )
+                        )
+                      }
+                    >
+                      {task.state ?   <CloseIcon />  : <CheckIcon />}
+
+                    </IconButton>
+                  </Stack>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+
+      </React.Fragment>
+
+  )
 }

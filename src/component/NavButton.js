@@ -8,7 +8,9 @@ export default function ListButton() {
   const { navBots, setNavBots } = useContext(NavBotsContext);
 
   const handleChange = (event, newAlignment) => {
-    setNavBots(newAlignment);
+    if (newAlignment !== null) {
+      setNavBots(newAlignment);
+    }
   };
 
   return (
@@ -21,9 +23,9 @@ export default function ListButton() {
         onChange={handleChange}
       aria-label="Platform"
     >
-    <ToggleButton value={navBots} onClick={() => setNavBots('all')}>all</ToggleButton>
-      <ToggleButton value={navBots} onClick={() => setNavBots('done')}>done</ToggleButton>
-      <ToggleButton value={navBots} onClick={() => setNavBots('undone')}>undone</ToggleButton>
+      <ToggleButton value={navBots} onClick={() => setNavBots('all')}>All</ToggleButton>
+      <ToggleButton value={navBots} onClick={() => setNavBots('done')}>Done</ToggleButton>
+      <ToggleButton value={navBots} onClick={() => setNavBots('undone')}>Undone</ToggleButton>
     </ToggleButtonGroup>
 </Box>  
   );

@@ -2,12 +2,13 @@ import * as React from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Box from '@mui/material/Box';
-
+import { NavBotsContext } from '../Data/Tasks';
+import { useContext } from 'react';
 export default function ListButton() {
-  const [alignment, setAlignment] = React.useState('all');
+  const { navBots, setNavBots } = useContext(NavBotsContext);
 
   const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
+    setNavBots(newAlignment);
   };
 
   return (
@@ -15,14 +16,14 @@ export default function ListButton() {
       <ToggleButtonGroup
         sx={{ display: 'flex', justifyContent: 'center' }}
         color="primary"
-        value={alignment}
+        value={navBots}
         exclusive
         onChange={handleChange}
       aria-label="Platform"
     >
-      <ToggleButton value="all">all</ToggleButton>
-      <ToggleButton value="done">done</ToggleButton>
-      <ToggleButton value="undone">undone</ToggleButton>
+    <ToggleButton value={navBots} onClick={() => setNavBots('all')}>all</ToggleButton>
+      <ToggleButton value={navBots} onClick={() => setNavBots('done')}>done</ToggleButton>
+      <ToggleButton value={navBots} onClick={() => setNavBots('undone')}>undone</ToggleButton>
     </ToggleButtonGroup>
 </Box>  
   );

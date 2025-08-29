@@ -21,11 +21,13 @@ import CloseIcon from '@mui/icons-material/Close';
 //import tasks data
 import { TasksContext } from "../Data/Tasks";
 import{ useContext } from "react";
+import { NavBotsContext } from "../Data/Tasks";
 
 
 // Use React state for cards
 export default function TodoList() {
   const { tasks, setTasks } = useContext(TasksContext);
+  const { navBots } = useContext(NavBotsContext);
   const [selectedCard, setSelectedCard] = React.useState(0);
   return (
     <Box

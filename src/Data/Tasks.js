@@ -20,4 +20,5 @@ const tasks = [
   },
 ];
 const TasksContext = createContext({ tasks: [], setTasks: () => {} });
-export { TasksContext, tasks };
+const NavBotsContext = createContext({ navBots: '', setNavBots: () => {} });
+export { TasksContext, tasks, NavBotsContext };
